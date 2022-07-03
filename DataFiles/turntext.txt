@@ -1,2 +1,1 @@
-Add your text here and use string.format or string.format_map
-with {variables} to template strings
+Hey, it's your turn. Let's have a letter, a vowel, or guess the word. 

@@ -32,39 +32,49 @@ def readDictionaryFile():
     d.close()
 
     for line in words:
-        print(line)
         dictionary.append(line)
     # Read dictionary file in from dictionary file location
     # Store each word in a list.
       
     
 def readTurnTxtFile():
-    global turntext   
-    #read in turn intial turn status "message" from file
+    global turntext
+    t = open(turntextloc)
+    turn = t.read()
+    t.close
+  #read in turn intial turn status "message" from file
 
         
 def readFinalRoundTxtFile():
-    global finalroundtext   
-    #read in turn intial turn status "message" from file
+    global finalroundtext
+    f = open(finalRoundTextLoc)
+    final = f.read()
+    f.close
+#read in turn intial turn status "message" from file
 
 def readRoundStatusTxtFile():
     global roundstatus
+    s = open(roundstatusloc)
+    status = s.read()
+    s.close
     # read the round status  the Config roundstatusloc file location 
 
 def readWheelTxtFile():
     global wheellist
-    w = open(wheeltextloc1)
+    w = open(wheeltextloc)
     wheel = w.readlines()
     w.close()
 
     for line in wheel:
-    print(line)
-    wheellist.append(line)
+        wheellist.append(line)
     # read the Wheel name from input using the Config wheelloc file location 
     
 def getPlayerInfo():
     global players
-    
+    players[0]["name"] = input("What's your name?:")
+    players[1]["name"] = input("What's your name?:")
+    players[2]["name"] = input("What's your name?:")
+
     # read in player names from command prompt input
 
 
@@ -96,6 +106,12 @@ def wofRoundSetup():
     global players
     global roundWord
     global blankWord
+
+    players[0]["roundtotal"] = 0
+    players[1]["roundtotal"] = 0
+    players[2]["roundtotal"] = 0
+    initPlayer = random.choice(players)
+    getWord()
     # Set round total for each player = 0
     # Return the starting player number (random)
     # Use getWord function to retrieve the word and the underscore word (blankWord)

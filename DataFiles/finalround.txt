@@ -1,2 +1,1 @@
-Add your text here and use string.format or string.format_map
-with {variables} to template strings
+It's time for the final round of the game!
