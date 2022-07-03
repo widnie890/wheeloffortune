@@ -1,5 +1,5 @@
 # Dictionary file location, change if needed.
-dictionaryloc = 'Data TXT Files\dictionary.txt'
+dictionaryloc = 'DataFiles\dictionary.txt'
 
 #reading the dictionary 
 
