@@ -93,8 +93,8 @@ def gameSetup():
     
 def getWord():
     global dictionary
-    roundWord = random.choice(dictionary)
-    roundWord = roundWord.lower()
+    roundWord = random.choice(dictionary).lower()
+    print(roundWord)
     roundUnderscoreWord = []
     for i in range(0,len(roundWord)):
         roundUnderscoreWord.append("_")
@@ -146,7 +146,7 @@ def spinWheel(playerNum):
         goodGuess, count = guessletter(letter,playerNum)
 # Change player round total if they guess right.
         if goodGuess == True:
-            players[playerNum]["roundtotal"] += spinvalue
+            players[playerNum]["roundtotal"] += int(spinvalue)
             print(f"There are {count} {letter}s in this word")
         else:  
             print(f"There are no {letter}s in this word")
@@ -167,9 +167,9 @@ def guessletter(letter, playerNum):
     # return goodGuess= true if it was a correct guess
             goodGuess = True
     # return count of letters in word.
-            count += 1 
-            print(f"You have guessed a correct letter. It is in the word {count} times!")
-        print(blankWord)
+            count = roundWord.count(letter)
+    print(f"You have guessed a correct letter. It is in the word {count} times!")
+    print(blankWord)
     return goodGuess, count
 
 def buyVowel(playerNum):
@@ -202,11 +202,11 @@ def guessWord(playerNum):
     global roundWord
     guessword = input("Guess the word!: ")
     
-    if guessword == roundword:
+    if guessword == roundWord:
         blankWord = []
         for i in range(0,len(roundWord)):
             blankWord.append(roundWord[i])
-            print("Congratulations! That was the word!")
+        print("Congratulations! That was the word!")
     else:
         return False 
     # Take in player number
@@ -260,10 +260,10 @@ def wofRound():
     
     # Keep doing things in a round until the round is done ( word is solved)
     # While still in the round keep rotating through players
- 
+    stillinTurn = True
     while True:
-        continueround = wofTurn(currentplayer)
-        if continueround == False:
+        if stillinTurn == False:
+            print("The round is now over.")    
             break
         if currentplayer == 2:
             currentplayer = 0
@@ -272,7 +272,7 @@ def wofRound():
         # Use the wofTurn fuction to dive into each players turn until their turn is done.
     
     # Print roundstatus with string.format, tell people the state of the round as you are leaving a round.
-    print("The round is now over.")
+    
 
 def wofFinalRound():
     global roundWord
