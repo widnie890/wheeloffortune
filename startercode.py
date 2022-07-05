@@ -1,3 +1,4 @@
+from calendar import c
 from config import dictionaryloc
 from config import turntextloc
 from config import wheeltextloc
@@ -94,7 +95,6 @@ def gameSetup():
 def getWord():
     global dictionary
     roundWord = random.choice(dictionary).lower()
-    print(roundWord)
     roundUnderscoreWord = []
     for i in range(0,len(roundWord)):
         roundUnderscoreWord.append("_")
@@ -127,6 +127,7 @@ def spinWheel(playerNum):
 
     stillinTurn = True
     spinvalue = random.choice(wheellist)
+    round
 # Check for bankrupcy, and take action.
     if spinvalue == "BANKRUPT":
         players[playerNum]["roundtotal"] = 0
@@ -146,8 +147,8 @@ def spinWheel(playerNum):
         goodGuess, count = guessletter(letter,playerNum)
 # Change player round total if they guess right.
         if goodGuess == True:
-            players[playerNum]["roundtotal"] += int(spinvalue)
-            print(f"There are {count} {letter}s in this word")
+            players[playerNum]["roundtotal"] +=  int(spinvalue)
+            print(f"There are {count} {letter}s in this word. You now have {spinvalue} in your bank.")
         else:  
             print(f"There are no {letter}s in this word")
     return stillinTurn
@@ -166,6 +167,7 @@ def guessletter(letter, playerNum):
             blankWord[i] = letter
     # return goodGuess= true if it was a correct guess
             goodGuess = True
+
     # return count of letters in word.
             count = roundWord.count(letter)
     print(f"You have guessed a correct letter. It is in the word {count} times!")
@@ -206,9 +208,11 @@ def guessWord(playerNum):
         blankWord = []
         for i in range(0,len(roundWord)):
             blankWord.append(roundWord[i])
+        players[playerNum]["gametotal"] += players[playerNum]["roundtotal"]
         print("Congratulations! That was the word!")
+        return False
     else:
-        return False 
+        return True
     # Take in player number
     # Ask for input of the word and check if it is the same as wordguess
     # Fill in blankList with all letters, instead of underscores if correct 
@@ -243,7 +247,7 @@ def wofTurn(playerNum):
     # Check to see if the word is solved, and return false if it is,
     # Or otherwise break the while loop of the turn.     
     
-    endofturn = " ".join(blankWord)
+    endofturn = "".join(blankWord)
     if endofturn == roundWord:
         return False
     else:
@@ -261,25 +265,27 @@ def wofRound():
     # Keep doing things in a round until the round is done ( word is solved)
     # While still in the round keep rotating through players
     stillinTurn = True
-    while True:
-        if stillinTurn == False:
-            print("The round is now over.")    
+    while stillinTurn:
+        stillinTurn = wofTurn(currentplayer)
+        if stillinTurn == False: 
             break
         if currentplayer == 2:
             currentplayer = 0
         else:
             currentplayer += 1
-        # Use the wofTurn fuction to dive into each players turn until their turn is done.
-    
+    # Use the wofTurn fuction to dive into each players turn until their turn is done.
     # Print roundstatus with string.format, tell people the state of the round as you are leaving a round.
-    
+    print(roundstatus.format(status = "is now over."))
+    print(players)
 
 def wofFinalRound():
     global roundWord
     global blankWord
     global finalroundtext
     winplayer = 0
-    amount = 0
+    amount = finalprize
+
+
     
     # Find highest gametotal player.  They are playing.
     # Print out instructions for that player and who the player is.
