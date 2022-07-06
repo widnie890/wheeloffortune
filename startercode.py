@@ -115,7 +115,7 @@ def wofRoundSetup():
     players[1]["roundtotal"] = 0
     players[2]["roundtotal"] = 0
     initPlayer = random.choice([0,1,2])
-    print(f"The first player is {initPlayer}")
+    print(f"The first player is player {initPlayer}")
     roundWord, blankWord =getWord()
     # Set round total for each player = 0
     # Return the starting player number (random)
@@ -155,6 +155,7 @@ def spinWheel(playerNum):
             print(f"There are {count} {letter}s in this word. You now have {spinvalue} in your bank.")
         else:  
             print(f"There are no {letter}s in this word")
+    
     return stillinTurn
 
 
@@ -272,16 +273,16 @@ def wofRound():
     
     # Keep doing things in a round until the round is done ( word is solved)
     # While still in the round keep rotating through players
-    
     stillinTurn = True
     while stillinTurn:
-        print(f"It's player {currentplayer}'s turn. The word is {roundUnderscoreWord}.")
+        stillinTurn = wofTurn(currentplayer)
         if stillinTurn == False: 
             break
-        wofTurn(initPlayer)
-        currentplayer += 1
-        if (currentplayer > 2):
+        if currentplayer == 2:
             currentplayer = 0
+        else:
+            currentplayer += 1
+    print(f"It's player {currentplayer}'s turn. The word is {roundUnderscoreWord}.")
     # Use the wofTurn fuction to dive into each players turn until their turn is done.
     # Print roundstatus with string.format, tell people the state of the round as you are leaving a round.
     print(roundstatus.format(status = "is now over."))
