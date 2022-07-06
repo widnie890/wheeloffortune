@@ -72,9 +72,9 @@ def readWheelTxtFile():
     
 def getPlayerInfo():
     global players
-    players[0]["name"] = input("What's your name?:")
-    players[1]["name"] = input("What's your name?:")
-    players[2]["name"] = input("What's your name?:")
+    players[0]["name"] = input("Player 0, What's your name?:")
+    players[1]["name"] = input("Player 1,What's your name?:")
+    players[2]["name"] = input("Player 2,What's your name?:")
 
     # read in player names from command prompt input
 
@@ -95,6 +95,7 @@ def gameSetup():
 def getWord():
     global dictionary
     roundWord = random.choice(dictionary).lower()
+    global roundUnderscoreWord
     roundUnderscoreWord = []
     print(roundWord)
     for i in range(0,len(roundWord)):
@@ -108,11 +109,13 @@ def wofRoundSetup():
     global players
     global roundWord
     global blankWord
+    roundUnderscoreWord = []
 
     players[0]["roundtotal"] = 0
     players[1]["roundtotal"] = 0
     players[2]["roundtotal"] = 0
     initPlayer = random.choice([0,1,2])
+    print(f"The first player is {initPlayer}")
     roundWord, blankWord =getWord()
     # Set round total for each player = 0
     # Return the starting player number (random)
@@ -239,7 +242,7 @@ def wofTurn(playerNum):
         if '_' not in blankWord:
             stillinTurn = False
             break
-        choice = input("Enter 'S' for Spin the Wheel, 'B' to Buy a Vowel, or 'G' to Guess the Word: ")  
+        choice = input("Enter 'S' to spin, 'B' to buy a vowel, or 'G' to guess the word?: ")
         if(choice.strip().upper() == "S"):
             stillinTurn = spinWheel(playerNum)
         elif(choice.strip().upper() == "B"):
@@ -265,18 +268,20 @@ def wofRound():
     global roundstatus
     initPlayer = wofRoundSetup()
     currentplayer = initPlayer
+   
     
     # Keep doing things in a round until the round is done ( word is solved)
     # While still in the round keep rotating through players
+    
     stillinTurn = True
     while stillinTurn:
-        stillinTurn = wofTurn(currentplayer)
+        print(f"It's player {currentplayer}'s turn. The word is {roundUnderscoreWord}.")
         if stillinTurn == False: 
             break
-        if currentplayer == 2:
+        wofTurn(initPlayer)
+        currentplayer += 1
+        if (currentplayer > 2):
             currentplayer = 0
-        else:
-            currentplayer += 1
     # Use the wofTurn fuction to dive into each players turn until their turn is done.
     # Print roundstatus with string.format, tell people the state of the round as you are leaving a round.
     print(roundstatus.format(status = "is now over."))
